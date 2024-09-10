@@ -5,10 +5,10 @@ import path from 'path';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '../environment/.env') });
 import authRouter from './routes/auth/auth.routes';
-
+import userRouter from './routes/user/user.routes';
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // SETTINGS 
 /**
@@ -27,6 +27,8 @@ app.use(express.json());
 
 // ROUTES
 app.use('/api/auth', authRouter);
+
+app.use('/api/user', userRouter);
 
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
