@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import { createUser, getUserByEmail, getUserById, validatePassword } from '../services/user.service';
 import jwt from 'jsonwebtoken';
 import { User } from "../interfaces/User";
-
+/**
+ * Registers a user
+ * @param req 
+ * @param res 
+ */
 export const signup = async (req: Request, res: Response) => {
     //Get values from request
     const numberId = req.body.CC;
@@ -45,7 +49,13 @@ export const signup = async (req: Request, res: Response) => {
         res.status(404).json({ success: false, message: 'Error creando usuario.' });
     }
 };
-
+/**
+ * Authenticates a user by checking their email and password, and then logs them in.
+ * 
+ * @param req email && password
+ * @param res
+ * @returns if success , users data otherwise throws an error
+ */
 export const signin = async (req: Request, res: Response) => {
     try {
         const email = req.body.email;
@@ -74,7 +84,12 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 
-
+/**
+ * Gets the user profile from a token
+ * @param req jwt id
+ * @param res 
+ * @returns the user session otherwise throws an error
+ */
 export const profile = async (req: Request, res: Response) => {
     console.log(req.CC)
     const user: User | null = await getUserById(req.CC);

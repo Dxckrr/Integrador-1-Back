@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 /**
- * Metodo para la creacion de usuarios 
+ * Creates a new user
  * @param user 
  * @returns 
  */
@@ -41,7 +41,7 @@ export async function createUser(user: User) {
 };
 
 /**
- * Function para encryption de la contraseña 
+ * Encrypts the password 
  * @param password 
  * @returns 
  */
@@ -51,8 +51,7 @@ export async function encryptPassword(password: string): Promise<string> {
 }
 
 /**
- * Comparación de la contraseña que da el user 
- * vs la contraseña guardada en la base de datos
+ * Validates the password with the encrypted password saved
  * @param password 
  * @param hashedPassword 
  * @returns 
@@ -66,7 +65,7 @@ export async function validatePassword(password: string, hashedPassword: string)
     }
 }
 /**
- * Metodo selct para obtener el usuario por email
+ * Gets a user by its email prop
  * @param email 
  * @returns 
  */
@@ -85,7 +84,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     }
 }
 /**
- * Metodo select para obtener el usuario por el idUser
+ * Gets the user by its id
  * @param id
  * @returns 
  */

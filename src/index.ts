@@ -5,8 +5,13 @@ import path from 'path';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '../environment/.env') });
 import authRouter from './routes/auth/auth.routes';
+import appointmentRouter from './routes/core/appointment.routes';
 
 
+/**
+ * Sanavit´s Backend for PI 1 
+ * @author Sanavit
+ */
 const app = express();
 const port = 3000;
 
@@ -27,6 +32,8 @@ app.use(express.json());
 
 // ROUTES
 app.use('/api/auth', authRouter);
+app.use('/api/appointments', appointmentRouter);
+
 
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
