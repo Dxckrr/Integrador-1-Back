@@ -16,7 +16,7 @@ export async function createUser(user: User) {
         const query = 'INSERT INTO USUARIOS SET CC=?, nombreUsuario=?, apellidoUsuario=?,emailUsuario=? , pwdUsuario=?, idSede=?, idRol=?, estadoUsuario=?,idEspecialidad=?, idHoja_Vida=?,idTipoPaciente=? ';
         const result: any = await connection.query(query,
             [user.CC, user.nombreUsuario, user.apellidoUsuario, user.emailUsuario,
-            hashedPassword, user.idSede, user.idRol, user.estadoUsuario, user.idEspecialidad, user.idHoja_Vida, user.idTipoPaciente
+                hashedPassword, user.idSede, user.idRol, user.estadoUsuario, user.idEspecialidad, user.idHoja_Vida, user.idTipoPaciente
             ]);
         const userId = (result[0].insertId)
         console.log("userId", userId)
@@ -129,15 +129,15 @@ export async function getAllUsersByRole(role: number): Promise<User | null> {
  * @returns 
  */
 
-export async function getAllDoctorsBySpeciality(id: number): Promise<User | null> {
+export async function getAllDoctorsBySpeciality(id: number): Promise<User[] | null> {
     try {
         const query = 'SELECT * FROM USUARIOS WHERE idEspecialidad = ? AND idRol = 3';
         const [rows]: any = await connection.query(query, [id]);
+        const medics: User[] = [];
         if (rows.length > 0) {
-            return rows[0] as User;
-        } else {
-            return null;
+            medics.push(rows[0] as User);
         }
+        return medics
     } catch (error) {
         console.error("Error retrieving user:", error);
         throw error;

@@ -27,8 +27,8 @@ export const getAllUsersByRole = async (req: Request, res: Response) => {
  * @returns medics by id otherwise throw an error
  */
 export const getAllDoctorsBySpeciality = async (req: Request, res: Response) => {
-    console.log(req.params.role)
-    const user: User | null = await getAllDoctorsBySpecialityService(parseInt(req.params.idSpeciality));
+    console.log(req.params.idSpeciality)
+    const user: User[] | null = await getAllDoctorsBySpecialityService(parseInt(req.params.idSpeciality));
     if (!user) {
         console.log(user)
         return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
