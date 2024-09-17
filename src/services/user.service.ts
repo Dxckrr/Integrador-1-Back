@@ -103,3 +103,43 @@ export async function getUserById(id: number): Promise<User | null> {
         throw error;
     }
 }
+/**
+ * Gets all users by its role
+ * @param id
+ * @returns 
+ */
+
+export async function getAllUsersByRole(role: number): Promise<User | null> {
+    try {
+        const query = 'SELECT * FROM USUARIOS WHERE idRol = ?';
+        const [rows]: any = await connection.query(query, [role]);
+        if (rows.length > 0) {
+            return rows[0] as User;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
+/**
+ * Gets all doctors by speciality
+ * @param id
+ * @returns 
+ */
+
+export async function getAllDoctorsBySpeciality(id: number): Promise<User | null> {
+    try {
+        const query = 'SELECT * FROM USUARIOS WHERE idEspecialidad = ? AND idRol = 3';
+        const [rows]: any = await connection.query(query, [id]);
+        if (rows.length > 0) {
+            return rows[0] as User;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
