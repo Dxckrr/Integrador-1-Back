@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, getUserByEmail, getUserById, validatePassword } from '../services/user.service';
+import { createUser, getUserByEmail, getUserById, validatePassword } from '../services/core/user.service';
 import jwt from 'jsonwebtoken';
 import { User } from "../interfaces/User";
 /**
