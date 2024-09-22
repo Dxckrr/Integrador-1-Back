@@ -1,4 +1,6 @@
-// import mysql from 'mysql';
+/**
+ * Database connection
+ */
 import mysql from 'mysql2/promise';
 
 const connection = mysql.createPool({

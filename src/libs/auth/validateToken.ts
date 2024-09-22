@@ -7,7 +7,13 @@ interface Payload {
     exp : number;
 }
 
-
+/**
+ * Validtes a jwt
+ * @param req 
+ * @param res 
+ * @param next
+ * @returns access token to next function
+ */
 export const TokenValidator = (req: Request , res: Response, next: NextFunction) =>{
     const token = req.header('auth-token');
     if (!token) return res.status(401).json('Acceso denegado.');

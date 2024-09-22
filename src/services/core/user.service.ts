@@ -1,10 +1,10 @@
-import { User } from '../interfaces/User';
-import connection from "../providers/database";
+import { User } from '../../interfaces/User';
+import connection from "../../providers/database";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 /**
- * Metodo para la creacion de usuarios 
+ * Creates a new user
  * @param user 
  * @returns 
  */
@@ -16,7 +16,7 @@ export async function createUser(user: User) {
         const query = 'INSERT INTO USUARIOS SET CC=?, nombreUsuario=?, apellidoUsuario=?,emailUsuario=? , pwdUsuario=?, idSede=?, idRol=?, estadoUsuario=?,idEspecialidad=?, idHoja_Vida=?,idTipoPaciente=? ';
         const result: any = await connection.query(query,
             [user.CC, user.nombreUsuario, user.apellidoUsuario, user.emailUsuario,
-            hashedPassword, user.idSede, user.idRol, user.estadoUsuario, user.idEspecialidad, user.idHoja_Vida, user.idTipoPaciente
+                hashedPassword, user.idSede, user.idRol, user.estadoUsuario, user.idEspecialidad, user.idHoja_Vida, user.idTipoPaciente
             ]);
         const userId = (result[0].insertId)
         console.log("userId", userId)
@@ -41,7 +41,7 @@ export async function createUser(user: User) {
 };
 
 /**
- * Function para encryption de la contraseña 
+ * Encrypts the password 
  * @param password 
  * @returns 
  */
@@ -51,8 +51,7 @@ export async function encryptPassword(password: string): Promise<string> {
 }
 
 /**
- * Comparación de la contraseña que da el user 
- * vs la contraseña guardada en la base de datos
+ * Validates the password with the encrypted password saved
  * @param password 
  * @param hashedPassword 
  * @returns 
@@ -66,7 +65,7 @@ export async function validatePassword(password: string, hashedPassword: string)
     }
 }
 /**
- * Metodo selct para obtener el usuario por email
+ * Gets a user by its email prop
  * @param email 
  * @returns 
  */
@@ -85,7 +84,7 @@ export async function getUserByEmail(email: string): Promise<User | null> {
     }
 }
 /**
- * Metodo select para obtener el usuario por el idUser
+ * Gets the user by its id
  * @param id
  * @returns 
  */
@@ -99,6 +98,46 @@ export async function getUserById(id: number): Promise<User | null> {
         } else {
             return null;
         }
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
+/**
+ * Gets all users by its role
+ * @param id
+ * @returns 
+ */
+
+export async function getAllUsersByRole(role: number): Promise<User | null> {
+    try {
+        const query = 'SELECT * FROM USUARIOS WHERE idRol = ?';
+        const [rows]: any = await connection.query(query, [role]);
+        if (rows.length > 0) {
+            return rows[0] as User;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
+/**
+ * Gets all doctors by speciality
+ * @param id
+ * @returns 
+ */
+
+export async function getAllDoctorsBySpeciality(id: number): Promise<User[] | null> {
+    try {
+        const query = 'SELECT * FROM USUARIOS WHERE idEspecialidad = ? AND idRol = 3';
+        const [rows]: any = await connection.query(query, [id]);
+        const medics: User[] = [];
+        if (rows.length > 0) {
+            medics.push(rows[0] as User);
+        }
+        return medics
     } catch (error) {
         console.error("Error retrieving user:", error);
         throw error;
