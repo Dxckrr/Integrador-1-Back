@@ -8,7 +8,7 @@ import connection from '../../providers/database';
 export async function createAppointment(appointmentData: Appointment) {
     try {
         const query = 'INSERT INTO CITAS ( dia, hora, estadoCita, idServicio, idHistoria_Medica, idUsuarioCC, idDocCC) VALUES(?, ?, ?, ?, ?, ?, ?)';
-        const values = [appointmentData.dia, appointmentData.hora, appointmentData.estadoCita, appointmentData.idServicio,
+        const values = [appointmentData.dia, appointmentData.hora, 0, appointmentData.idServicio,
         appointmentData.idHistoria_Medica, appointmentData.idUsuarioCC, appointmentData.idDocCC];
         const [result]: any = await connection.query(query, values);
         return { id: result.insertId, ...appointmentData };

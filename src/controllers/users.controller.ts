@@ -3,7 +3,7 @@ import {
     getAllUsersByRole as getAllUsersByRoleService,
     getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService
 
-} from '../services/user.service';
+} from '../services/core/user.service';
 import { User } from 'interfaces/User';
 /**
  * Gets all users by their role

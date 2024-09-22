@@ -1,5 +1,5 @@
-import { User } from '../interfaces/User';
-import connection from "../providers/database";
+import { User } from '../../interfaces/User';
+import connection from "../../providers/database";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
