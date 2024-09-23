@@ -8,14 +8,12 @@ import authRouter from './routes/auth/auth.routes';
 import appointmentRouter from './routes/core/appointment.routes';
 import usersRouter from './routes/core/users.routes';
 
-
-
 /**
- * Sanavit´s Backend for PI 1 
+ * SanavitÂ´s Backend for PI 1 
  * @author Sanavit
  */
 const app = express();
-const port = 3001;
+const port = 3000;
 
 // SETTINGS 
 /**
@@ -34,6 +32,9 @@ app.use(express.json());
 
 // ROUTES
 app.use('/api/auth', authRouter);
+app.use('/api/appointments', appointmentRouter);
+app.use('/api/users', usersRouter)
+
 
 app.listen(port, () => {
   console.log(`Server is listening on ${port}`);
