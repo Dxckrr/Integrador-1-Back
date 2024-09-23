@@ -23,7 +23,13 @@ export async function createAppointment(appointmentData: Appointment) {
  */
 export async function getAllAppointments() {
     try {
-        const query = 'SELECT * FROM CITAS';
+        const query = `SELECT cita.idServicio AS 'type', CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
+            CONCAT(cita.dia, ' ') AS 'date', cita.idCita AS 'id',
+            CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
+            pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
+            FROM CITAS cita
+            JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC`;
         const [rows]: any = await connection.query(query);
         return rows;
     } catch (error) {

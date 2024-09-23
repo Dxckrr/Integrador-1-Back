@@ -10,10 +10,8 @@ import usersRouter from './routes/core/users.routes';
 import hoursRouter from './routes/hours.routes';
 
 
-
-
 /**
- * Sanavit´s Backend for PI 1 
+ * SanavitÂ´s Backend for PI 1 
  * @author Sanavit
  */
 const app = express();
