@@ -8,10 +8,8 @@ import authRouter from './routes/auth/auth.routes';
 import appointmentRouter from './routes/core/appointment.routes';
 import usersRouter from './routes/core/users.routes';
 
-
-
 /**
- * Sanavit´s Backend for PI 1 
+ * SanavitÂ´s Backend for PI 1 
  * @author Sanavit
  */
 const app = express();
