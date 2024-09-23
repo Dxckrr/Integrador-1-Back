@@ -7,6 +7,8 @@ dotenv.config({ path: path.join(__dirname, '../environment/.env') });
 import authRouter from './routes/auth/auth.routes';
 import appointmentRouter from './routes/core/appointment.routes';
 import usersRouter from './routes/core/users.routes';
+import hoursRouter from './routes/hours.routes';
+
 
 /**
  * SanavitÂ´s Backend for PI 1 
@@ -34,6 +36,8 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/appointments', appointmentRouter);
 app.use('/api/users', usersRouter)
+app.use('/api/hours', hoursRouter)
+
 
 
 app.listen(port, () => {
