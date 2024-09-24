@@ -72,6 +72,7 @@ export const getAppointmentByUser = async (req: Request, res: Response) => {
  */
 export const updateAppointmentById = async (req: Request, res: Response) => {
     try {
+        console.log(req.body)
         const updatedAppointment = await updateAppointmentByIdService(parseInt(req.params.id), req.body);
         if (!updatedAppointment) {
             return res.status(404).json({ message: 'Cita no encontrada' });
