@@ -13,7 +13,7 @@ router
     .post('/create', createAppointment)
     .get('/', getAllAppointments)
     .get('/:id', getAppointmentById)
-    .get('/:id', getAppointmentByUser) //Doctor or Patient
+    .get('/user/:id', getAppointmentByUser) //Doctor or Patient
     .put('/:id', updateAppointmentById)
     .delete('/delete/:id', deleteAppointmentById);
 

@@ -98,3 +98,5 @@ export async function deleteAppointmentById(id: number) {
         throw error;
     }
 }
+
+
