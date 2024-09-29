@@ -1,4 +1,4 @@
-interface MedicHistory {
+export interface MedicHistory {
     idHistoria_Medica: number;
     tipoSangre: string;
     genero: string;
