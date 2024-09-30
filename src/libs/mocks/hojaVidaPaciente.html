@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de Vida - Paciente Sanavit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0099cc;
+            padding-bottom: 10px;
+        }
+        .logo img {
+            max-width: 100px;
+            margin-right: 20px;
+        }
+        .header-content h1, .header-content h2 {
+            margin: 0;
+            color: #0099cc;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            background-color: #0099cc;
+            color: white;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        input[type="text"], input[type="tel"], input[type="email"], textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        #printButton {
+            background-color: #0099cc;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .container {
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="Logo.png" alt="Logo Sanavit">
+            </div> 
+            <div class="header-content">
+                <h1>Hoja de Vida del Paciente</h1>
+                <h2>Sanavit</h2> 
+            </div>
+        </header>
+
+        <form id="patientForm">
+            <div class="section">
+                <h3 class="section-title">Información Personal</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Nombres y Apellidos:</label>
+                        <input type="text" id="fullName" name="fullName" value="Sergio Eliecer Nuñez Rincon">
+                    </div>
+                    <div class="form-group">
+                        <label for="idNumber">Cédula:</label>
+                        <input type="text" id="idNumber" name="idNumber" value="105642027">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Fecha de nacimiento:</label>
+                        <input type="tel" id="phone" name="phone" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">sexo:</label>
+                        <input type="email" id="email" name="email" value=>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Nacionalidad:</label>
+                        <input type="text" id="address" name="address" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Departamento:</label>
+                        <input type="text" id="gender" name="gender" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="maritalStatus">Municipio:</label>
+                        <input type="text" id="maritalStatus" name="maritalStatus" value="">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title">Información de Contacto</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="epsName">Telefono:</label>
+                        <input type="text" id="epsName" name="epsName" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="affiliationNumber">Correo Electronico:</label>
+                        <input type="text" id="affiliationNumber" name="affiliationNumber" value="">
+                    </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Direccion de Residencia</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="emergencyContact">Direccion domicilio Paciente:</label>
+                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="relationship">Departemento:</label>
+                        <input type="text" id="relationship" name="relationship" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergencyPhone">Ciudad:</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergencyEmail">Telefono:</label>
+                        <input type="email" id="emergencyEmail" name="emergencyEmail" value="">
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title">Datos de Contacto de Emergencia</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="emergencyContact">Nombres:</label>
+                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="relationship">Parentezco:</label>
+                        <input type="text" id="relationship" name="relationship" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergencyPhone">Telefono:</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
+                    </div>
+            </div>
+
+            
+            <div class="section">
+                <h3 class="section-title">Datos de Ocupacion</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="emergencyContact">Ocupacion o Profesion:</label>
+                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="relationship">Lugar de trabajo:</label>
+                        <input type="text" id="relationship" name="relationship" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergencyPhone">Tipo de Actividad:</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
+                    </div>
+            </div>
+
+
+
+        </form>
+        
+        <button id="printButton" class="no-print" onclick="window.print()">Imprimir PDF</button>
+    </div>
+
+    <script>
+   
+    </script>
+</body>
+</html>

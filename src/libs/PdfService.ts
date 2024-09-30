@@ -7,8 +7,8 @@ import { margins } from 'pdfkit/js/page';
 //import { Appointment } from '../interfaces/Appointment';
 //import { Site } from 'interfaces/Site';
 
-// export async function buildPdf(medic : User, client : User, medicService : Services, infoHistoryMedic : any, site: Site) {
-export async function buildPdf() {
+export async function buildPdf(medic : User, client : User, infoHistoryMedic : any) {
+//export async function buildPdf() {
     const age = 35;
     const patientData={
         // num_id : client.CC,
@@ -38,38 +38,40 @@ export async function buildPdf() {
         // vacunas : infoHistoryMedic.vacunas,
         // familiares : infoHistoryMedic.familiares,
         // conclusion : infoHistoryMedic.conclusion,
-        num_id: "1001234567",  // Documento de identidad del cliente (mockup)
-        gender: "Masculino",  // Género del paciente
-        age: 35,  // Edad del paciente (mockup)
-        name: "Juan",  // Nombre del cliente
-        lastname: "Pérez",  // Apellido del cliente
-        birthdate: "1988-04-15",  // Fecha de nacimiento formateada
-        disability: "Ninguna",  // Información de discapacidad
-        name_medic: "María",  // Nombre del médico
-        lastname_medic: "González",  // Apellido del médico
-        fecha_rev: "2024-09-09",  // Fecha de revisión formateada
-        hora_rev: "10:30",  // Hora de la revisión
-        nameService: "Consulta General",  // Nombre del servicio médico
-        siteName: "Clínica Salud Total",  // Nombre del lugar donde se realiza el servicio
-        motive: "Chequeo anual",  // Motivo de la consulta
-        descrip_motive: "Revisión de rutina y control de peso",  // Descripción del motivo de la consulta
-        blood_presure: "120/80",  // Presión arterial del paciente
-        normal_blood_presure: "120/80",  // Presión arterial considerada normal
-        pulse: 72,  // Pulso del paciente
-        saturation: 98,  // Saturación de oxígeno del paciente
-        height: 175,  // Altura del paciente (cm)
-        weight: 75,  // Peso del paciente (kg)
-        perinatales: "Sin complicaciones",  // Historial perinatal
-        patologicos: "Ninguno",  // Historial de enfermedades patológicas
-        quirurgicos: "Apendicectomía",  // Intervenciones quirúrgicas previas
-        vacunas: "COVID-19, Influenza",  // Vacunas recibidas
-        familiares: "Hipertensión en la familia",  // Historial familiar
-        conclusion: "Paciente en buenas condiciones generales",  // Conclusión del médico
+        "num_id": "2009876543",  // Documento de identidad del cliente (mockup)
+        "gender": "Femenino",  // Género del paciente
+        "age": 28,  // Edad del paciente (mockup)
+        "name": "Ana",  // Nombre del cliente
+        "lastname": "Martínez",  // Apellido del cliente
+        "birthdate": "1996-06-22",  // Fecha de nacimiento formateada
+        "disability": "Ninguna",  // Información de discapacidad
+        "name_medic": "Carlos",  // Nombre del médico
+        "lastname_medic": "Rodríguez",  // Apellido del médico
+        "fecha_rev": "2024-09-15",  // Fecha de revisión formateada
+        "hora_rev": "14:00",  // Hora de la revisión
+        "nameService": "Examen de Laboratorio",  // Nombre del servicio médico
+        "siteName": "Hospital Vida Saludable",  // Nombre del lugar donde se realiza el servicio
+        "motive": "Chequeo general",  // Motivo de la consulta
+        "descrip_motive": "Análisis rutinario de salud y estudios de laboratorio",  // Descripción del motivo de la consulta
+        "blood_presure": "115/75",  // Presión arterial del paciente
+        "normal_blood_presure": "120/80",  // Presión arterial considerada normal
+        "pulse": 68,  // Pulso del paciente
+        "saturation": 99,  // Saturación de oxígeno del paciente
+        "height": 160,  // Altura del paciente (cm)
+        "weight": 60,  // Peso del paciente (kg)
+        "perinatales": "Sin complicaciones",  // Historial perinatal
+        "patologicos": "Sin antecedentes",  // Historial de enfermedades patológicas
+        "quirurgicos": "Cesárea",  // Intervenciones quirúrgicas previas
+        "vacunas": "Hepatitis B, Tétanos",  // Vacunas recibidas
+        "familiares": "Diabetes en la familia",  // Historial familiar
+        "conclusion": "Paciente en estado saludable con resultados normales en pruebas"  // Conclusión del médico
     }
     
-    const htmlPath = path.join(__dirname, 'mocks', 'HistoryClinic.html');
-    
+    //const htmlPath = path.join(__dirname, 'mocks', 'HistoryClinic.html');
+    const htmlPath = path.join(__dirname, 'mocks', 'hojaVidaPaciente.html');
+
     const htmlContent = await replacePlaceholders(htmlPath, patientData);
+
     
     const pdf = await generatePdf(htmlContent);
     

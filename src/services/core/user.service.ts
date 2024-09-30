@@ -143,6 +143,21 @@ export async function getAllUsersByRole(role: number): Promise<User | null> {
     }
 }
 /**
+ * 
+ * @param role 
+ * @returns 
+ */
+export async function getAllPacients(): Promise<User | null> {
+    try {
+        const query = 'SELECT CC AS pacientID, nombreUsuario AS name, apellidoUsuario AS lastname FROM USUARIOS WHERE idRol = 4;';
+        const [rows]: any = await connection.query(query);
+        return rows;
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
+/**
  * Gets all doctors by speciality
  * @param id
  * @returns 
@@ -159,6 +174,22 @@ export async function getAllDoctorsBySpeciality(id: number): Promise<User[] | nu
         return medics
     } catch (error) {
         console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
+/**
+ * 
+ * @param userId 
+ * @param appoinmentId 
+ * @returns 
+ */
+export async function getMedicalRecordPdf(userId: string, appoinmentId: number) {
+    try {
+        const query = '';
+        //buildPdf();
+        return {};
+    } catch (error) {
+        console.error("Error generating pdf:", error);
         throw error;
     }
 }

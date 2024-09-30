@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import {
     getAllUsersByRole as getAllUsersByRoleService,
-    getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService
-
+    getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService,
+    getAllPacients as getAllPacientsService,
 } from '../services/core/user.service';
 import { User } from 'interfaces/User';
 /**
@@ -14,6 +14,21 @@ import { User } from 'interfaces/User';
 export const getAllUsersByRole = async (req: Request, res: Response) => {
     console.log(req.params.role)
     const user: User  | null = await getAllUsersByRoleService(parseInt(req.params.role));
+    if (!user) {
+        console.log(user)
+        return res.status(404).json({ success: false, message: 'Usuarios no encontrados.' });
+    }
+    res.status(200).json({ success: true, user });
+};
+/**
+ * Gets all pacients users
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const getAllPacients = async (req: Request, res: Response) => {
+    console.log(req.params.role)
+    const user: User  | null = await getAllPacientsService();
     if (!user) {
         console.log(user)
         return res.status(404).json({ success: false, message: 'Usuarios no encontrados.' });
