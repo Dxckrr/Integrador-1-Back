@@ -1,5 +1,6 @@
 import { Appointment } from 'interfaces/Appointment';
 import connection from '../../providers/database';
+
 /**
  * Creates a new Appointment
  * @param appointmentData 
@@ -29,7 +30,8 @@ export async function getAllAppointments() {
             pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
             FROM CITAS cita
             JOIN USUARIOS medic ON cita.idDocCC = medic.CC
-            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC`;
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC 
+            WHERE cita.estadoCita = 0`;
         const [rows]: any = await connection.query(query);
         return rows;
     } catch (error) {
@@ -111,5 +113,3 @@ export async function deleteAppointmentById(id: number) {
         throw error;
     }
 }
-
-

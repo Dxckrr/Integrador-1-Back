@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">  <!-- Establece la codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Configura la vista para dispositivos móviles -->
+    <title>Factura Electrónica</title>  <!-- Título de la página que aparece en la pestaña del navegador -->
+    <style type="text/css">
+        /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* Estilos del encabezado principal */
+        .main-header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Estilos del contenedor del logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Estilos del logo */
+        .logo {
+            width: 200px;
+            height: 100px;
+            margin-right: 100px;
+        }
+
+        /* Estilos de la información de facturación */
+        .billing-info {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .billing-info h2 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        /* Estilos de la información de la factura */
+        .invoice-info {
+            background-color: #ffffff;
+            color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Estilos de los encabezados h2 y h3 */
+        h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        /* Estilos de los párrafos */
+        p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Estilos generales de la factura */
+        .invoice {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Estilos de las secciones de información del paciente, detalles de la consulta y condiciones de pago */
+        .patient-info, .consultation-details, .payment-info {
+            margin-bottom: 20px;
+        }
+
+        /* Estilos específicos de la tabla de información del paciente */
+        .patient-info table {
+            width: 35%;  /* Ajusta el ancho de la tabla de información del paciente */
+            border-collapse: collapse;
+        }
+
+        .patient-info td {
+            padding: 8px;
+        }
+
+        .patient-label {
+            font-weight: bold;
+            width: 100px;
+        }
+
+        /* Estilos generales de las tablas */
+        table {
+            width: 100%;  /* Ajusta el ancho de todas las tablas al 100% */
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+            height: 20px;  /* Ajusta la altura de cada celda */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .total-label {
+            font-weight: bold;
+        }
+
+        .total-amount {
+            font-weight: bold;
+            text-align: left;
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        /* Estilos del pie de página */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* Ajustes específicos para la tabla de información adicional */
+        .information-table {
+            height: 20%;
+            width: 100%;  /* Ajusta el ancho de la tabla de información adicional */
+            margin-left: 20px;  /* Espacio entre tablas */
+        }
+
+        .header-combined {
+            font-weight: bold;
+            text-align: center;
+            background-color: #007bff;  /* Color de fondo para la cabecera combinada */
+            color: #ffffff;  /* Color del texto para la cabecera combinada */
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">  <!-- Encabezado principal de la factura -->
+        <div class="logo-container">  <!-- Contenedor para el logo y la información de facturación -->
+            <img src="logo.png" alt="Logo de la Empresa" class="logo">  <!-- Imagen del logo de la empresa -->
+            <div class="billing-info">  <!-- Información de facturación -->
+                <h2>Facturación</h2>  <!-- Título de la sección de facturación -->
+                <p>NIT: 00000</p>  <!-- Número de identificación tributaria -->
+                <p>Santander - Colombia</p>  <!-- Ubicación de la empresa -->
+                <p>Correo: empresa@empresa.com</p>  <!-- Correo electrónico de contacto -->
+            </div>
+        </div>
+        <div class="invoice-info">  <!-- Información específica de la factura -->
+            <h3>Factura electrónica de venta</h3>  <!-- Título de la factura -->
+            <p>No. 1</p>  <!-- Número de la factura -->
+        </div>
+    </header>
+    <div class="invoice" id="invoice">  <!-- Contenedor principal de la factura -->
+        <section class="patient-info">  <!-- Sección de información del paciente -->
+            <h2>Información del Paciente</h2>  <!-- Título de la sección de información del paciente -->
+            <div style="display: flex; justify-content: space-between;">  <!-- Contenedor flex para alinear tablas -->
+                <table style="margin-right: 20px;">  <!-- Tabla de información del paciente -->
+                    <tr>
+                        <td class="patient-label">Nombre:</td>  <!-- Etiqueta para el nombre del paciente -->
+                        <td>Cliente Prueba</td>  <!-- Valor correspondiente al nombre del paciente -->
+                    </tr>
+                    <tr>
+                        <td class="patient-label">Cédula:</td>  <!-- Etiqueta para la cédula del paciente -->
+                        <td>987654321</td>  <!-- Valor correspondiente a la cédula del paciente -->
+                    </tr>
+                    <tr>
+                        <td class="patient-label">Edad:</td>  <!-- Etiqueta para la edad del paciente -->
+                        <td>45 años</td>  <!-- Valor correspondiente a la edad del paciente -->
+                    </tr>
+                    <tr>
+                        <td class="patient-label">Dirección:</td>  <!-- Etiqueta para la dirección del paciente -->
+                        <td>Avenida Principal 456</td>  <!-- Valor correspondiente a la dirección del paciente -->
+                    </tr>
+                    <tr>
+                        <td class="patient-label">Correo:</td>  <!-- Etiqueta para el correo del paciente -->
+                        <td>clienteprueba@gmail.com</td>  <!-- Valor correspondiente al correo del paciente -->
+                    </tr>
+                    <tr>
+                        <td class="patient-label">Teléfono:</td>  <!-- Etiqueta para el teléfono del paciente -->
+                        <td>474743632837</td>  <!-- Valor correspondiente al teléfono del paciente -->
+                    </tr>
+                </table>
+
+                <!-- Tabla de Información Adicional -->
+                <table class="information-table" style="margin-left: 20px;">  <!-- Tabla para información adicional -->
+                    <tr>
+                        <td colspan="2" class="header-combined">Información Adicional</td>  <!-- Encabezado combinado para la tabla -->
+                    </tr>
+                    <tr>
+                        <td><strong>Generación</strong></td>  <!-- Etiqueta para la fecha de generación -->
+                        <td>23/08/2024, 10:10am</td>  <!-- Valor correspondiente a la fecha de generación -->
+                    </tr>
+                    <tr>
+                        <td><strong>Expedición</strong></td>  <!-- Etiqueta para la fecha de expedición -->
+                        <td>23/08/2024, 10:10am</td>  <!-- Valor correspondiente a la fecha de expedición -->
+                    </tr>
+                    <tr>
+                        <td><strong>Vencimiento</strong></td>  <!-- Etiqueta para la fecha de vencimiento -->
+                        <td>23/09/2024</td>  <!-- Valor correspondiente a la fecha de vencimiento -->
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="consultation-details">  <!-- Sección de detalles de la consulta -->
+            <h2>Detalles de la Consulta</h2>  <!-- Título de la sección de detalles de la consulta -->
+            <table>  <!-- Tabla para los detalles de la consulta -->
+                <thead>
+                    <tr>
+                        <th>Código</th>  <!-- Encabezado para el código del servicio -->
+                        <th>Descripción</th>  <!-- Encabezado para la descripción del servicio -->
+                        <th>Cantidad</th>  <!-- Encabezado para la cantidad del servicio -->
+                        <th>Valor Unitario</th>  <!-- Encabezado para el valor unitario del servicio -->
+                        <th>Valor Total</th>  <!-- Encabezado para el valor total del servicio -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>  <!-- Código de la consulta -->
+                        <td>Consulta Médica</td>  <!-- Descripción del servicio -->
+                        <td>1</td>  <!-- Cantidad del servicio -->
+                        <td>$70.000</td>  <!-- Valor unitario del servicio -->
+                        <td>$70.000</td>  <!-- Valor total del servicio -->
+                    </tr>
+                    <tr>
+                        <td>02</td>  <!-- Código de la terapia -->
+                        <td>Terapia Hernia Discal Lumbar</td>  <!-- Descripción del servicio -->
+                        <td>5</td>  <!-- Cantidad del servicio -->
+                        <td>$150.000</td>  <!-- Valor unitario del servicio -->
+                        <td>$750.000</td>  <!-- Valor total del servicio -->
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="total-label">Total</td>  <!-- Etiqueta para el total -->
+                        <td class="total-amount">$820.000</td>  <!-- Valor total de la factura -->
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section class="payment-info">  <!-- Sección de condiciones de pago -->
+            <h2>Condiciones de Pago</h2>  <!-- Título de la sección de condiciones de pago -->
+            <p>Crédito o Efectivo: $820.000</p>  <!-- Información sobre el método de pago -->
+            <p>Observaciones: Medio de pago Transferencia</p>  <!-- Observaciones sobre el pago -->
+            <p>Favor consignar a la siguiente cuenta corriente: 000-222111-34 Bancolombia</p>  <!-- Información de la cuenta bancaria -->
+            <p>Si presenta inconvenientes, enviar un correo a: <a href="mailto:empresa@empresa.com">empresa@empresa.com</a></p>  <!-- Información de contacto -->
+        </section>
+    </div>
+
+    <!-- Enlace para descargar el PDF -->
+    <a href="Archivo/Factura boseto.pdf" download="Factura"
+        <button type="button">Descargar PDF</button>
+    </a>
+</body>
+</html>
