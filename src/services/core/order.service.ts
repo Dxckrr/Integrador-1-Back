@@ -78,3 +78,28 @@ export async function getAllOrdenesMedicas(): Promise<OrdenMedica[] | null> {
     }
 }
 
+export async function getOrdenesMedicasByUsuarioId(idUsuarioCC: string): Promise<OrdenMedica[] | null> {
+    try {
+        const query = `
+            SELECT om.* 
+            FROM ORDENES_MEDICAS om
+            JOIN CITAS c ON om.idCita = c.idCita
+            WHERE c.idUsuarioCC = ?;
+        `;
+        const [rows]: any = await connection.query(query, [idUsuarioCC]);
+
+        if (rows.length > 0) {
+            return rows as OrdenMedica[];
+        } else {
+            console.log(`No medical orders found for user with ID: ${idUsuarioCC}`);
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error retrieving medical orders for user with ID: ${idUsuarioCC}`, error);
+        throw error;
+    }
+}
+
+
+
+
