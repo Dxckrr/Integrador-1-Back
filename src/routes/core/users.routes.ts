@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { getAllUsersByRole,getUserByRole getAllDoctorsBySpeciality } from "../../controllers/users.controller";
+import { getAllUsersByRole, getAllDoctorsBySpeciality, getUsersById,} from "../../controllers/users.controller";
+
+
 const router: Router = Router();
 
 router
-    .get('/:role', getUserByRole)
+    .get('/:role', getAllUsersByRole)
+    .get('/user/:id', getUsersById)
     .get('/doctors/:idSpeciality', getAllDoctorsBySpeciality)
 
 

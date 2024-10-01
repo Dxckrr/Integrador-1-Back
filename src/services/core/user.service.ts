@@ -102,7 +102,6 @@ export async function getUserById(id: number): Promise<User | null> {
         throw error;
     }
 }
-
 /**
  * Gets the user name by its id
  * @param id
@@ -124,26 +123,6 @@ export async function getUserNameById(id: number): Promise<User | null> {
 }
 /**
  * Gets A user by its role
- * @param id
- * @returns 
- */
-
-export async function getUserByRole(role: number): Promise<User | null> {
-    try {
-        const query = 'SELECT * FROM USUARIOS WHERE idRol = ?';
-        const [rows]: any = await connection.query(query, [role]);
-        if (rows.length > 0) {
-            return rows[0] as User;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        console.error("Error retrieving user:", error);
-        throw error;
-    }
-}
-/**
- * Gets all users by its role
  * @param id
  * @returns 
  */

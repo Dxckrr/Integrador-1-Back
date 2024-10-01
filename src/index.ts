@@ -8,6 +8,8 @@ import authRouter from './routes/auth/auth.routes';
 import appointmentRouter from './routes/core/appointment.routes';
 import emergenciesRouter from './routes/core/emergencies.routes';
 import usersRouter from './routes/core/users.routes';
+import ordersRouter from './routes/core/orders.routes';
+import medicalHistoryRouter from "./routes/core/medicalHistory.routes"
 import hoursRouter from './routes/hours.routes';
 import authorizationRouter from './routes/core/authorization.routes';
 
@@ -40,6 +42,8 @@ app.use('/api/auth', authRouter);
 app.use('/api/appointments', appointmentRouter);
 app.use('/api/emergencies', emergenciesRouter);
 app.use('/api/users', usersRouter)
+app.use('/api/orders', ordersRouter)
+app.use('/api/medical-history', medicalHistoryRouter)
 app.use('/api/hours', hoursRouter)
 app.use('/api/authorization', authorizationRouter);
 
