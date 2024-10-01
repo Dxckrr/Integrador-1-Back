@@ -14,8 +14,7 @@ router
     .get('/', getAllAppointments)
     .get('/:id', getAppointmentById)
     .get('/user/:id', getAppointmentByUser) //Doctor or Patient
-    .put('/:id', updateAppointmentById)
+    .put('/update/:id', updateAppointmentById)
     .delete('/delete/:id', deleteAppointmentById);
-
 
 export default router;

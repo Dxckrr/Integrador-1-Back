@@ -7,6 +7,7 @@ import {
     updateAppointmentById as updateAppointmentByIdService,
     deleteAppointmentById as deleteAppointmentByIdService
 } from '../services/core/appointment.service';
+import { getUserNameById } from 'services/core/user.service';
 /**
  * Creates a new appointment
  * @param req appointment data needed
@@ -71,6 +72,7 @@ export const getAppointmentByUser = async (req: Request, res: Response) => {
  */
 export const updateAppointmentById = async (req: Request, res: Response) => {
     try {
+        console.log(req.body)
         const updatedAppointment = await updateAppointmentByIdService(parseInt(req.params.id), req.body);
         if (!updatedAppointment) {
             return res.status(404).json({ message: 'Cita no encontrada' });

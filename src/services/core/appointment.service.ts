@@ -8,7 +8,7 @@ import connection from '../../providers/database';
 export async function createAppointment(appointmentData: Appointment) {
     try {
         const query = 'INSERT INTO CITAS ( dia, hora, estadoCita, idServicio, idHistoria_Medica, idUsuarioCC, idDocCC) VALUES(?, ?, ?, ?, ?, ?, ?)';
-        const values = [appointmentData.dia, appointmentData.hora, appointmentData.estadoCita, appointmentData.idServicio,
+        const values = [appointmentData.dia, appointmentData.hora, 0, appointmentData.idServicio,
         appointmentData.idHistoria_Medica, appointmentData.idUsuarioCC, appointmentData.idDocCC];
         const [result]: any = await connection.query(query, values);
         return { id: result.insertId, ...appointmentData };
@@ -23,7 +23,13 @@ export async function createAppointment(appointmentData: Appointment) {
  */
 export async function getAllAppointments() {
     try {
-        const query = 'SELECT * FROM CITAS';
+        const query = `SELECT cita.idServicio AS 'type', CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
+            CONCAT(cita.dia, ' ') AS 'date', cita.idCita AS 'id',
+            CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
+            pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
+            FROM CITAS cita
+            JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC`;
         const [rows]: any = await connection.query(query);
         return rows;
     } catch (error) {
@@ -57,8 +63,15 @@ export async function getAppointmentById(id: number) {
  */
 export async function getAppointmentByUser(userId: number) {
     try {
-        const query = 'SELECT * FROM CITAS WHERE idDocCC = ? OR idUsuarioCC = ?';
-        const [rows]: any = await connection.query(query, [userId, userId]);
+        const query = `SELECT cita.idServicio AS 'type', CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
+        CONCAT(cita.dia, ' ') AS 'date', cita.idCita AS 'id',
+        CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
+        pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
+        FROM CITAS cita
+        JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+        JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
+        WHERE idUsuarioCC = ?`;
+        const [rows]: any = await connection.query(query, [userId]);
         return rows;
     } catch (error) {
         console.error("Error retrieving appointments by user:", error);
@@ -73,9 +86,9 @@ export async function getAppointmentByUser(userId: number) {
  */
 export async function updateAppointmentById(id: number, appointmentData: any) {
     try {
-        const query = 'UPDATE CITAS SET dia = ?, hora = ?, estadoCita = ?, idServicio = ?, idHistoria_Medica = ?, idUsuarioCC = ?, idDocCC = ? WHERE idCita = ?';
-        const values = [appointmentData.dia, appointmentData.hora, appointmentData.estadoCita, appointmentData.idServicio,
-        appointmentData.idHistoria_Medica, appointmentData.idUsuarioCC, appointmentData.idDocCC, id];
+        const query = 'UPDATE CITAS SET dia = ?, hora = ?, idHistoria_Medica = ? WHERE idCita = ?';
+        const values = [appointmentData.dia, appointmentData.hora,
+        appointmentData.idHistoria_Medica, id];
         const [result]: any = await connection.query(query, values);
         if (result.affectedRows > 0) {
             return { id, ...appointmentData };
@@ -90,7 +103,7 @@ export async function updateAppointmentById(id: number, appointmentData: any) {
 
 export async function deleteAppointmentById(id: number) {
     try {
-        const query = 'DELETE * FROM CITAS WHERE idCita = ?';
+        const query = 'DELETE FROM CITAS WHERE idCita = ?';
         const [rows]: any = await connection.query(query, [id]);
         return rows;
     } catch (error) {

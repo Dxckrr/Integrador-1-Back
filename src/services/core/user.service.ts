@@ -88,7 +88,6 @@ export async function getUserByEmail(email: string): Promise<User | null> {
  * @param id
  * @returns 
  */
-
 export async function getUserById(id: number): Promise<User | null> {
     try {
         const query = 'SELECT * FROM USUARIOS WHERE CC = ?';
@@ -103,7 +102,25 @@ export async function getUserById(id: number): Promise<User | null> {
         throw error;
     }
 }
-    
+/**
+ * Gets the user name by its id
+ * @param id
+ * @returns
+ */
+export async function getUserNameById(id: number): Promise<User | null> {
+    try {
+        const query = `SELECT CONCAT(nombreUsuario, ' ', apellidoUsuario)  as nombreCompleto FROM USUARIOS WHERE CC = ?`;
+        const [rows]: any = await connection.query(query, [id]);
+        if (rows.length > 0) {
+            return rows[0] as User;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error retrieving user:", error);
+        throw error;
+    }
+}
 /**
  * Gets all users by its role
  * @param id
