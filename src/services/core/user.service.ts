@@ -132,11 +132,8 @@ export async function getAllUsersByRole(role: number): Promise<User | null> {
     try {
         const query = 'SELECT * FROM USUARIOS WHERE idRol = ?';
         const [rows]: any = await connection.query(query, [role]);
-        if (rows.length > 0) {
-            return rows[0] as User;
-        } else {
-            return null;
-        }
+        return rows;
+        
     } catch (error) {
         console.error("Error retrieving user:", error);
         throw error;
