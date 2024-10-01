@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import {
-    getAllUsersByRole as getAllUsersByRoleService,
+    getUserByRole as getUserByRoleService,
     getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService
 
 } from '../services/core/user.service';
@@ -13,7 +13,7 @@ import { User } from 'interfaces/User';
  */
 export const getAllUsersByRole = async (req: Request, res: Response) => {
     console.log(req.params.role)
-    const user: User  | null = await getAllUsersByRoleService(parseInt(req.params.role));
+    const user: User  | null = await getUserByRoleService(parseInt(req.params.role));
     if (!user) {
         console.log(user)
         return res.status(404).json({ success: false, message: 'Usuarios no encontrados.' });
