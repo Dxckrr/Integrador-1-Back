@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import {
     getAllUsersByRole as getAllUsersByRoleService,
-    getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService,
-    getAllPacients as getAllPacientsService,
+    getAllDoctorsBySpeciality as getAllDoctorsBySpecialityService, getUserById, getAllPacients as getAllPacientsService,
     getHistoryClinicInfo,
     getOrderInfo,
     getCVInfo,
     getPayStubInfo,
+
 } from '../services/core/user.service';
 import { User } from 'interfaces/User';
 import { buildCVPdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf } from '../libs/PdfService';
@@ -18,12 +18,29 @@ import { buildCVPdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf } from
  */
 export const getAllUsersByRole = async (req: Request, res: Response) => {
     console.log(req.params.role)
-    const user: User  | null = await getAllUsersByRoleService(parseInt(req.params.role));
-    if (!user) {
-        console.log(user)
+    //cambios realizados para que traiga todos los usuario y no solo el primero
+    const users: User[] | null = await getAllUsersByRoleService(parseInt(req.params.role));
+    if (!users || users.length === 0) {
+        console.log(users);
         return res.status(404).json({ success: false, message: 'Usuarios no encontrados.' });
     }
-    res.status(200).json({ success: true, user });
+    res.status(200).json({ success: true, users });
+};
+
+export const getUsersById = async (req: Request, res: Response) => {
+    try {
+      const userId = parseInt(req.params.id, 10);
+      const user = await getUserById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+      }
+  
+      res.status(200).json({ success: true, user });
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
+      res.status(500).json({ success: false, message: 'Error en el servidor.' });
+    }
 };
 /**
  * Gets all pacients users

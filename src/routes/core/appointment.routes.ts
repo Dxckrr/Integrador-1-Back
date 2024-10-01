@@ -17,5 +17,4 @@ router
     .put('/update/:id', updateAppointmentById)
     .delete('/delete/:id', deleteAppointmentById);
 
-
 export default router;
