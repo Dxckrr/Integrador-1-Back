@@ -102,7 +102,6 @@ export async function getUserById(id: number): Promise<User | null> {
         throw error;
     }
 }
-
 /**
  * Gets the user name by its id
  * @param id
@@ -128,12 +127,13 @@ export async function getUserNameById(id: number): Promise<User | null> {
  * @returns 
  */
 
-export async function getAllUsersByRole(role: number): Promise<User | null> {
+export async function getAllUsersByRole(role: number): Promise<User[] | null> {
     try {
         const query = 'SELECT * FROM USUARIOS WHERE idRol = ?';
+        //trae todos los usuario y no solo el primero
         const [rows]: any = await connection.query(query, [role]);
         if (rows.length > 0) {
-            return rows[0] as User;
+            return rows as User[];
         } else {
             return null;
         }
