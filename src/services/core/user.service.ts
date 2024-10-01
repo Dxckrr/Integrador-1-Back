@@ -122,7 +122,7 @@ export async function getUserNameById(id: number): Promise<User | null> {
     }
 }
 /**
- * Gets all users by its role
+ * Gets A user by its role
  * @param id
  * @returns 
  */
