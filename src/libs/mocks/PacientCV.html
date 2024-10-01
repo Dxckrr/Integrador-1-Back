@@ -101,32 +101,24 @@
                 <h3 class="section-title">Información Personal</h3>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="fullName">Nombres y Apellidos:</label>
-                        <input type="text" id="fullName" name="fullName" value="Sergio Eliecer Nuñez Rincon">
+                        <label for="fullName">Nombres:</label>
+                        <span id="fullName">{{name}}</span>
                     </div>
                     <div class="form-group">
-                        <label for="idNumber">Cédula:</label>
-                        <input type="text" id="idNumber" name="idNumber" value="105642027">
+                        <label for="idNumber">Apellidos:</label>
+                        <span id="fullName">{{last_name}}</span>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Fecha de nacimiento:</label>
-                        <input type="tel" id="phone" name="phone" value="">
+                        <label for="phone">Cédula:</label>
+                        <span id="fullName">{{cc}}</span>
                     </div>
                     <div class="form-group">
-                        <label for="email">sexo:</label>
-                        <input type="email" id="email" name="email" value=>
+                        <label for="email">Fecha de nacimiento:</label>
+                        <span id="fullName">{{date}}</span>
                     </div>
                     <div class="form-group">
-                        <label for="address">Nacionalidad:</label>
-                        <input type="text" id="address" name="address" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Departamento:</label>
-                        <input type="text" id="gender" name="gender" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="maritalStatus">Municipio:</label>
-                        <input type="text" id="maritalStatus" name="maritalStatus" value="">
+                        <label for="address">sexo:</label>
+                        <span id="fullName">{{sex}}</span>
                     </div>
                 </div>
             </div>
@@ -136,11 +128,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="epsName">Telefono:</label>
-                        <input type="text" id="epsName" name="epsName" value="">
+                        <span id="fullName">{{number_phone}}</span>
                     </div>
                     <div class="form-group">
                         <label for="affiliationNumber">Correo Electronico:</label>
-                        <input type="text" id="affiliationNumber" name="affiliationNumber" value="">
+                        <span id="fullName">{{correo}}</span>
                     </div>
             </div>
 
@@ -149,62 +141,47 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="emergencyContact">Direccion domicilio Paciente:</label>
-                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
+                        <span id="fullName">{{direc}}</span>
                     </div>
                     <div class="form-group">
                         <label for="relationship">Departemento:</label>
-                        <input type="text" id="relationship" name="relationship" value="">
+                        <span id="fullName">{{deparment}}</span>
                     </div>
                     <div class="form-group">
                         <label for="emergencyPhone">Ciudad:</label>
-                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
+                        <span id="fullName">{{city}}</span>
                     </div>
                     <div class="form-group">
-                        <label for="emergencyEmail">Telefono:</label>
-                        <input type="email" id="emergencyEmail" name="emergencyEmail" value="">
+                        <label for="emergencyEmail">Codigo Postal:</label>
+                        <span id="fullName">{{code_postal}}</span>
                 </div>
             </div>
+            
             
             <div class="section">
                 <h3 class="section-title">Datos de Contacto de Emergencia</h3>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="emergencyContact">Nombres:</label>
-                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
+                        <label for="emergencyContact">Nombre Completo:</label>
+                        <span id="fullName">{{name_complete}}</span>
                     </div>
                     <div class="form-group">
                         <label for="relationship">Parentezco:</label>
-                        <input type="text" id="relationship" name="relationship" value="">
+                        <span id="fullName">{{parente}}</span>
                     </div>
                     <div class="form-group">
                         <label for="emergencyPhone">Telefono:</label>
-                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
+                        <span id="fullName">{{number_phone}}</span>
                     </div>
             </div>
 
             
-            <div class="section">
-                <h3 class="section-title">Datos de Ocupacion</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="emergencyContact">Ocupacion o Profesion:</label>
-                        <input type="text" id="emergencyContact" name="emergencyContact" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="relationship">Lugar de trabajo:</label>
-                        <input type="text" id="relationship" name="relationship" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="emergencyPhone">Tipo de Actividad:</label>
-                        <input type="tel" id="emergencyPhone" name="emergencyPhone" value="">
-                    </div>
-            </div>
 
 
 
         </form>
         
-        <button id="printButton" class="no-print" onclick="window.print()">Imprimir PDF</button>
+       
     </div>
 
     <script>

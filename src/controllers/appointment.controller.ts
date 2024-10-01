@@ -8,6 +8,7 @@ import {
     deleteAppointmentById as deleteAppointmentByIdService
 } from '../services/core/appointment.service';
 import { getUserNameById } from 'services/core/user.service';
+
 /**
  * Creates a new appointment
  * @param req appointment data needed

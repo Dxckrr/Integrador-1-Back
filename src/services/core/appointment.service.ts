@@ -1,6 +1,6 @@
 import { Appointment } from 'interfaces/Appointment';
 import connection from '../../providers/database';
-import { buildPdf } from 'libs/PdfService';
+
 /**
  * Creates a new Appointment
  * @param appointmentData 

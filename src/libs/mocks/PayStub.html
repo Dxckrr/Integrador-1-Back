@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colilla de Pago</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .receipt-container {
+            background-color: white;
+            width: 600px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        .header-info {
+            text-align: right;
+        }
+
+        .header-info h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .receipt-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .patient-info, .appointment-info {
+            font-size: 16px;
+        }
+
+        .appointment-info {
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .payment-details {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        tfoot td {
+            font-weight: bold;
+        }
+
+        .payment-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .payment-info ul li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .barcode-section {
+            margin-top: 20px;
+        }
+
+        .barcode-container {
+            text-align: center;
+        }
+
+        .barcode {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 10px auto;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        #printButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0099cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #printButton:hover {
+            background-color: #0099cc;
+        }
+
+        
+        @media print {
+            #printButton {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <header class="receipt-header">
+            <div class="logo">
+                <img src="logo.png" alt="Logo de la Empresa">
+            </div>
+            <div class="header-info">
+                <h1>Colilla de Pago</h1>
+                <p>IPS Especialistas Médicos</p>
+                <p>REFERENCIA NO. <span id="referenceNumber"></span></p>
+            </div>
+        </header>
+
+        <section class="receipt-info">
+            <div class="patient-info">
+                <p><strong>Paciente:</strong> Juan Pérez</p>
+                <p><strong>Documento:</strong> 123456789</p>
+                <p><strong>Fecha de Nacimiento:</strong> 15/06/1985</p>
+            </div>
+
+            <div class="appointment-info">
+                <p><strong>Número de Cita:</strong> 987654321</p>
+                <p><strong>Especialidad:</strong> Fisioterapia</p>
+                <p><strong>Fecha de la Cita:</strong> 23/09/2024</p>
+                <p><strong>Hora de la Cita:</strong> 10:00 AM</p>
+            </div>
+        </section>
+
+        <section class="payment-details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sesión de Fisioterapia</td>
+                        <td>1</td>
+                        <td>$100,000</td>
+                        <td>$100,000</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Subtotal</td>
+                        <td>$100,000</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Impuestos (19%)</td>
+                        <td>$19,000</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><strong>Total a Pagar</strong></td>
+                        <td><strong>$119,000</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section class="payment-info">
+            <p><strong>Bancos Disponibles para el Pago:</strong></p>
+            <ul>
+                <li>Banco A</li>
+                <li>Banco B</li>
+                <li>Banco C</li>
+            </ul>
+        </section>
+
+        <section class="barcode-section">
+            <p><strong>Fecha Límite de Pago:</strong> 30/09/2024</p>
+            <div class="barcode-container">
+                <p><strong>Código de Barras:</strong></p>
+                <svg id="barcode"></svg>
+            </div>
+        </section>
+
+        <footer class="receipt-footer">
+            <p>Gracias por confiar en IPS Especialistas Médicos.</p>
+            <p>Si tiene alguna duda sobre su pago, contáctenos al 123-456-7890.</p>
+        </footer> 
+    </div>
+
+   
+
+    <script>
+        // Función para generar un número de referencia aleatorio
+        function generateReferenceNumber() {
+            return Math.floor(10000 + Math.random() * 90000).toString();
+        }
+        const referenceNumber = generateReferenceNumber();
+        document.getElementById('referenceNumber').textContent = referenceNumber;
+
+        JsBarcode("#barcode", referenceNumber, {
+            format: "CODE128",
+            width: 2,
+            height: 100,
+            displayValue: true
+        });
+    </script>
+</body>
+</html>
