@@ -5,7 +5,8 @@ import {
     getAppointmentById,
     getAppointmentByUser,
     updateAppointmentById,
-    deleteAppointmentById
+    deleteAppointmentById,
+    getAppointmentsByService
 } from "../../controllers/appointment.controller"
 const router: Router = Router();
 
@@ -14,6 +15,7 @@ router
     .get('/', getAllAppointments)
     .get('/:id', getAppointmentById)
     .get('/user/:id', getAppointmentByUser) //Doctor or Patient
+    .get('/service/:service', getAppointmentsByService )
     .put('/update/:id', updateAppointmentById)
     .delete('/delete/:id', deleteAppointmentById);
 
