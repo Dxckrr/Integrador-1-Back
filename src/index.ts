@@ -13,7 +13,7 @@ import medicalHistoryRouter from "./routes/core/medicalHistory.routes"
 import hoursRouter from './routes/hours.routes';
 import authorizationRouter from './routes/core/authorization.routes';
 import satisfactionRouter from './routes/satisfaction.routes';
-
+import stadisticsRouter from './routes/stadistics.routes';
 
 
 /**
@@ -48,6 +48,7 @@ app.use('/api/medical-history', medicalHistoryRouter)
 app.use('/api/hours', hoursRouter)
 app.use('/api/authorization', authorizationRouter);
 app.use('/api/satisfaction', satisfactionRouter);
+app.use('/api/stadistics', stadisticsRouter);
 
 
 app.listen(port, () => {
