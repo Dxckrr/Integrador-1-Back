@@ -1,0 +1,205 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hoja de Vida - Especialista Sanavit</title>
+        
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                border: 1px solid #ccc;
+                padding: 20px;
+            }
+            header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid #0099cc;
+                padding-bottom: 10px;
+            }
+            .logo img {
+                max-width: 100px;
+                margin-right: 20px;
+            }
+            .header-content h1, .header-content h2 {
+                margin: 0;
+                color: #0099cc;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+            .section-title {
+                background-color: #0099cc;
+                color: white;
+                padding: 5px 10px;
+                margin-bottom: 10px;
+            }
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .form-group {
+                margin-bottom: 10px;
+            }
+            label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 3px;
+            }
+            input[type="text"], input[type="tel"], input[type="email"], textarea {
+                width: 100%;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+            textarea {
+                resize: vertical;
+            }
+            #printButton {
+                background-color: #0099cc;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin-top: 20px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+            @media print {
+                .no-print {
+                    display: none;
+                }
+                .container {
+                    border: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="Logo.png" alt="Logo Vitamed">
+                </div> 
+                <div class="header-content">
+                    <h1>Hoja de Vida del Especialista</h1>
+                    <h2>Sanavit</h2> 
+                </div>
+            </header>
+
+            <form id="specialistForm">
+                <div class="section">
+                    <h3 class="section-title">Información Personal</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Nombres:</label>
+                            <span id="fullName">{{name}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="idNumber"> Apellidos:</label>
+                            <span id="idNumber">{{apellidos}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Cédula:</label>
+                            <span id="gender">{{{number_cc}}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Género:</label>
+                            <span id="email">{{sex}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Correo:</label>
+                            <span id="address">{{Correo}}</span>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Informacion Administrativa</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="emergencyPhone">Salario:</label>    
+                            <span id="emergencyPhone">{{activite_tipe}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationship">Cargo:</label>
+                            <span id="relationship">{{lugar_trabajo}}</span>
+                        </div>
+                        
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Información de Contacto</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="epsName">Telefono:</label>
+                            <span id="epsName">{{phone_number}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="affiliationNumber">Correo Electronico:</label>
+                            <span id="affiliationNumber">{{correo}}</span>
+                        </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Direccion de Residencia</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="diretionpac">Direccion domicilio :</label>
+                            <span id="diretionpac">{{direc}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationship">Departemento:</label>
+                            <span id="relationship">{{deparment}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyPhone">Ciudad:</label>
+                            <span id="relationship">{{ciudad}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyEmail">Telefono:</label>
+                            <span for="emergencyEmail">{{tel}}</span>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Datos de Contacto de Emergencia</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="emergencyContact">Nombre Completo:</label>
+                            <span for="emergencyContact">{{name_complete}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationship">Parentezco:</label>
+                            <span for="relationship">{{parentezk}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyPhone">Telefono:</label>
+                            <span for="emergencyContact">{{phone_number}}</span>
+                        </div>
+                </div>
+
+            
+        
+        </div>
+
+        <script>
+            
+        </script>
+    </body>
+    </html>

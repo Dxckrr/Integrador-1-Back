@@ -55,7 +55,12 @@ export async function buildHistoryClinicPdf(infoHistoryMedic : MedicalRecord) {
     
     return pdf;
 }
-export async function buildCVPdf(userData : any) {
+/**
+ * Generates the pdf to pacient's CV
+ * @param userData 
+ * @returns 
+ */
+export async function buildCVUserPdf(userData : any) {
     //const age = calcularEdad(userData.fecha_nacimiento);
     const patientData={
         // //Informacion personal
@@ -77,6 +82,40 @@ export async function buildCVPdf(userData : any) {
     }
 
     const htmlPath = path.join(__dirname, 'mocks', 'PacientCV.html');
+    const htmlContent = await replacePlaceholders(htmlPath, patientData);
+
+    const pdf = await generatePdf(htmlContent);
+    
+    return pdf;
+}
+
+/**
+ * Generates the pdf to the employee's CV
+ * @param userData 
+ * @returns 
+ */
+export async function buildCVEmployeePdf(userData : any) {
+    //const age = calcularEdad(userData.fecha_nacimiento);
+    const patientData={
+        // //Informacion personal
+        // cc : userData.CC,
+        // sex : userData.sexo,
+        // age : age,
+        // name : userData.nombreUsuario,
+        // last_name : userData.apellidoUsuario,
+        // date : formatDate(userData.fecha_nacimiento),
+        // //Informacion de contacto
+        // number_phone : userData.telefonoUsuario,
+        // correo : userData.emailUsuario,
+        // //Direccion de residencia
+        // direc : userData.direccion,
+        // //Datos contacto emergencia
+        // name_complete : userData.contacto_emergencia_nombre,
+        // parente : userData.contacto_emergencia_parentesco,
+        
+    }
+
+    const htmlPath = path.join(__dirname, 'mocks', 'EmployeeCV.html');
     const htmlContent = await replacePlaceholders(htmlPath, patientData);
 
     const pdf = await generatePdf(htmlContent);

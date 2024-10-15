@@ -9,7 +9,7 @@ import {
 
 } from '../services/core/user.service';
 import { User } from 'interfaces/User';
-import { buildCVPdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf } from '../libs/PdfService';
+import { buildCVUserPdf, buildCVEmployeePdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf } from '../libs/PdfService';
 /**
  * Gets all users by their role
  * @param req user_role
@@ -100,12 +100,12 @@ export const getHistoryClinic = async (req: Request, res: Response) => {
     }
 }
 /**
- * Gets the cv PDF for any user
+ * Gets the cv PDF for pacient
  * @param req 
  * @param res 
  * @returns 
  */
-export const getCV = async (req: Request, res: Response) => {
+export const getCVUser = async (req: Request, res: Response) => {
     try {
         const { cc, idRol } = req.params;
         if (!cc || !idRol) {
@@ -114,7 +114,7 @@ export const getCV = async (req: Request, res: Response) => {
         
         const infoCV: any | null = await getCVInfo(cc);
 
-        const pdf = await buildCVPdf(infoCV);
+        const pdf = await buildCVUserPdf(infoCV);
         
         res.writeHead(200, {
             "Content-Type": "application/pdf",
@@ -127,6 +127,36 @@ export const getCV = async (req: Request, res: Response) => {
         res.status(500).send("Error al generar o enviar el PDF");
     }
 }
+
+/**
+ * Gets the cv PDF for employee
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const getCVEmployee = async (req: Request, res: Response) => {
+    try {
+        const { cc, idRol } = req.params;
+        if (!cc || !idRol) {
+            return res.status(400).send("Documento o ID no proporcionados");
+        }
+        
+        const infoCV: any | null = await getCVInfo(cc);
+
+        const pdf = await buildCVEmployeePdf(infoCV);
+        
+        res.writeHead(200, {
+            "Content-Type": "application/pdf",
+            "Content-Disposition": "attachment; filename=filename.pdf"
+        });
+
+        res.end(pdf);
+    } catch (error) {
+        console.error("Error al generar o enviar el PDF:", error);
+        res.status(500).send("Error al generar o enviar el PDF");
+    }
+}
+
 /**
  * Gets the medic order PDF
  * @param req 

@@ -221,7 +221,7 @@ export async function getCVInfo(userId: string) {
                         hojaVida.telefonoUsuario, usuario.emailUsuario,
                         hojaVida.direccion,
                         hojaVida.contacto_emergencia_nombre, hojaVida.contacto_emergencia_telefono, hojaVida.contacto_emergencia_parentesco,
-                        hojaVida.contacto_emergencia_correo, hojaVida.cargo, hojaVida.fechaIngreso, hojaVida.tipoContrato, hojaVida.salarioNeto, hojaVida.cargo
+                        hojaVida.contacto_emergencia_correo, hojaVida.cargo, hojaVida.fechaIngreso, hojaVida.tipoContrato, hojaVida.salarioNeto
                     FROM USUARIOS usuario JOIN HOJAS_VIDA hojaVida ON hojaVida.idHoja_Vida = usuario.CC
                     WHERE usuario.CC = ?
                         `;
