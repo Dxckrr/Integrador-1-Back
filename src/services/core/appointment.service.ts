@@ -113,3 +113,50 @@ export async function deleteAppointmentById(id: number) {
         throw error;
     }
 }
+export async function getAppointmentsByService(service: number) {
+    try {
+        const query = `
+            SELECT 
+                MONTH(c.dia) AS month_num, 
+                YEAR(c.dia) AS year, 
+                SUM(s.precioServicio) AS total_income  
+            FROM 
+                CITAS c
+            JOIN 
+                SERVICIOS s ON c.idServicio = s.idServicio
+            JOIN 
+                ESPECIALIDADES e ON s.idEspecialidad = e.idEspecialidad
+            WHERE 
+                e.idEspecialidad = ? 
+            GROUP BY 
+                YEAR(c.dia), MONTH(c.dia)  
+            ORDER BY 
+                YEAR(c.dia), MONTH(c.dia) 
+                ;
+        `;
+        const [rows]: any = await connection.query(query, [service]);  // Use category as parameter
+        return rows;  // This will return an array of { month, total_income }
+    } catch (error) {
+        console.error("Error fetching appointments by category", error);
+        throw error;
+    }
+}
+
+export async function getAllAppointments_PRICE() {
+    try {
+        const query = `
+            SELECT 
+                c.dia AS appointment_date, 
+                s.precioServicio AS service_price  
+            FROM CITAS c
+            JOIN 
+                SERVICIOS s ON c.idServicio = s.idServicio  
+            ORDER BY c.dia;
+        `;
+        const [rows]: any = await connection.query(query);  // Use category as parameter
+        return rows;  // This will return an array of { month, total_income }
+    } catch (error) {
+        console.error("Error fetching appointments by category", error);
+        throw error;
+    }
+}

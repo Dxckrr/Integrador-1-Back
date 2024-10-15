@@ -5,7 +5,9 @@ import {
     getAppointmentById as getAppointmentByIdService,
     getAppointmentByUser as getAppointmentByUserService,
     updateAppointmentById as updateAppointmentByIdService,
-    deleteAppointmentById as deleteAppointmentByIdService
+    deleteAppointmentById as deleteAppointmentByIdService,
+    getAppointmentsByService as getAppointmentsByService_Service,
+    getAllAppointments_PRICE as getAllAppointments_PRICE_Service
 } from '../services/core/appointment.service';
 import { getUserNameById } from 'services/core/user.service';
 
@@ -90,6 +92,25 @@ export const deleteAppointmentById = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Cita no eliminada con exito' });
         }
         return res.status(200).json({ message: 'Appointment successfully deleted' });
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+};
+export const getAppointmentsByService = async (req: Request, res: Response) => {
+    try {
+        const appointments = await getAppointmentsByService_Service(parseInt(req.params.service));
+        if (!appointments) {
+            return res.status(404).json({ message: 'Cita no eliminada con exito' });
+        }
+        return res.status(200).json(appointments);
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+};
+export const getAllAppointments_PRICE = async (req: Request, res: Response) => {
+    try {
+        const appointments = await getAllAppointments_PRICE_Service();
+        return res.status(200).json(appointments);
     } catch (error) {
         return res.status(500).json({ message: error });
     }

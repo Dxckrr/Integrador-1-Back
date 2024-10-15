@@ -76,7 +76,7 @@ export const signin = async (req: Request, res: Response) => {
             expiresIn: 60 * 60 * 3  //una hora
         });
         res.cookie("token", token);
-        return res.status(200).header('auth-token', token).json({ user });
+        return res.status(200).header('auth-token', token).json(user);
     } catch (error) {
         console.error("Error during login: ", error);
         return res.status(404).json({ success: false, message: 'Error interno del servidor.' });
@@ -95,8 +95,8 @@ export const profile = async (req: Request, res: Response) => {
     const user: User | null = await getUserById(req.CC);
     if (!user) {
         console.log(user)
-        return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+        return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
-    res.status(200).json({ success: true, user });
+    res.status(200).json(user);
 };
 
