@@ -73,7 +73,51 @@ export async function getNumberOfPatients() {
     try {
         const query = `SELECT COUNT(*) AS totalSoloUsuarios
                         FROM USUARIOS
-                        WHERE idTipoPaciente is not null;
+                        WHERE idRol = 4;
+                        `;
+        const [rows]: any = await connection.query(query);
+        if (rows.length > 0) {
+            return rows
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error retrieving appointments:", error);
+        return null;
+    }
+}
+/**
+ * Gets the number of users in the database
+ * @param  
+ * @returns 
+ */
+export async function getNumberOfSpecialist() {
+    try {
+        const query = `SELECT COUNT(*) AS totalSoloUsuarios
+                        FROM USUARIOS
+                        WHERE idRol = 3;
+                        `;
+        const [rows]: any = await connection.query(query);
+        if (rows.length > 0) {
+            return rows
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error retrieving appointments:", error);
+        return null;
+    }
+}
+/**
+ * Gets the number of users in the database
+ * @param  
+ * @returns 
+ */
+export async function getNumberOfOperators() {
+    try {
+        const query = `SELECT COUNT(*) AS totalSoloUsuarios
+                        FROM USUARIOS
+                        WHERE idRol = 2;
                         `;
         const [rows]: any = await connection.query(query);
         if (rows.length > 0) {
@@ -263,6 +307,35 @@ export async function getTotalIncome() {
                         FROM CITAS C
                         JOIN SERVICIOS S ON C.idServicio = S.idServicio;`;
                         
+        const [rows]: any = await connection.query(query);
+        if (rows.length > 0) {
+            return rows
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error("Error retrieving appointments:", error);
+        return null;
+    }
+}
+/**
+ * Gets number of appointments by month
+ * @param  
+ * @returns 
+ */
+export async function getAppointmentStadistics() {
+    try {
+        const query = `SELECT
+                        e.nombreEspecialidad,
+                        SUM(s.precioServicio) AS total_income  
+                        FROM 
+                            CITAS c
+                        JOIN 
+                            SERVICIOS s ON c.idServicio = s.idServicio
+                        JOIN 
+                            ESPECIALIDADES e ON s.idEspecialidad = e.idEspecialidad
+                        GROUP BY 
+                            e.nombreEspecialidad;`;
         const [rows]: any = await connection.query(query);
         if (rows.length > 0) {
             return rows

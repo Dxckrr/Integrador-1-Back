@@ -12,7 +12,10 @@ import {
     getNumberOfAppointments_OnWait,
     getLastAppointment_OnWait,
     getTotalIncome,
-} from '../services/stadistics.service'; 
+    getNumberOfOperators,
+    getNumberOfSpecialist,
+    getAppointmentStadistics,
+} from '../services/stadistics.service';
 /**
  * Gets all data from satisfaction surveys 
  * @param req
@@ -25,6 +28,8 @@ export const getAllStadistics = async (req: Request, res: Response) => {
             moreAskedSpecialty,
             numberOfUsers,
             numberOfPatients,
+            numberOfSpecialist,
+            numberOfOperators,
             numberOfServices,
             moreAskedService,
             numberOfEmergencies,
@@ -38,6 +43,8 @@ export const getAllStadistics = async (req: Request, res: Response) => {
             getMoreAskedSpecialty(),
             getNumberOfUsers(),
             getNumberOfPatients(),
+            getNumberOfSpecialist(),
+            getNumberOfOperators(),
             getNumberOfServices(),
             getMoreAskedServicee(),
             getNumberOfEmergencies(),
@@ -53,6 +60,8 @@ export const getAllStadistics = async (req: Request, res: Response) => {
             moreAskedSpecialty,
             numberOfUsers,
             numberOfPatients,
+            numberOfSpecialist,
+            numberOfOperators,
             numberOfServices,
             moreAskedService,
             numberOfEmergencies,
@@ -68,4 +77,13 @@ export const getAllStadistics = async (req: Request, res: Response) => {
         console.error("Error fetching statistics:", error);
         return res.status(500).json({ message: error || "Internal Server Error" });
     }
+};
+
+export const getAppointmentsEstadistics = async (req: Request, res: Response) => {
+    const resultData = await getAppointmentStadistics();
+    if (!resultData) {
+        console.log(resultData);
+        return res.status(404).json({ success: false, message: 'Usuarios no encontrados.' });
+    }
+    res.status(200).json(resultData);
 };
