@@ -123,9 +123,11 @@ export async function getAppointmentsByService(service: number) {
             FROM 
                 CITAS c
             JOIN 
-                SERVICIOS s ON c.idServicio = s.idServicio  
+                SERVICIOS s ON c.idServicio = s.idServicio
+            JOIN 
+                ESPECIALIDADES e ON s.idEspecialidad = e.idEspecialidad
             WHERE 
-                c.idServicio = ? 
+                e.idEspecialidad = ? 
             GROUP BY 
                 YEAR(c.dia), MONTH(c.dia)  
             ORDER BY 
