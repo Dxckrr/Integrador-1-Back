@@ -12,11 +12,12 @@ import ordersRouter from './routes/core/orders.routes';
 import medicalHistoryRouter from "./routes/core/medicalHistory.routes"
 import hoursRouter from './routes/hours.routes';
 import authorizationRouter from './routes/core/authorization.routes';
-
+import satisfactionRouter from './routes/satisfaction.routes';
+import stadisticsRouter from './routes/stadistics.routes';
 
 
 /**
- * SanavitÂ´s Backend for PI 1 
+ * Sanavit´s Backend for PI 1 
  * @author Sanavit
  */
 const app = express();
@@ -46,8 +47,8 @@ app.use('/api/orders', ordersRouter)
 app.use('/api/medical-history', medicalHistoryRouter)
 app.use('/api/hours', hoursRouter)
 app.use('/api/authorization', authorizationRouter);
-
-
+app.use('/api/satisfaction', satisfactionRouter);
+app.use('/api/stadistics', stadisticsRouter);
 
 
 app.listen(port, () => {
