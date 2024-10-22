@@ -85,7 +85,6 @@ export const getHistoryClinic = async (req: Request, res: Response) => {
         }
 
         const infoHistoryClinic: any | null = await getHistoryClinicInfo(cc, parseInt(idCita));
-
         const pdf = await buildHistoryClinicPdf(infoHistoryClinic);
         
         res.writeHead(200, {
@@ -140,11 +139,9 @@ export const getCVEmployee = async (req: Request, res: Response) => {
         if (!cc || !idRol) {
             return res.status(400).send("Documento o ID no proporcionados");
         }
-        
         const infoCV: any | null = await getCVInfo(cc);
-
         const pdf = await buildCVEmployeePdf(infoCV);
-        
+
         res.writeHead(200, {
             "Content-Type": "application/pdf",
             "Content-Disposition": "attachment; filename=filename.pdf"

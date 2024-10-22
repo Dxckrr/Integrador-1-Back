@@ -185,16 +185,17 @@ export async function getAllDoctorsBySpeciality(id: number): Promise<User[] | nu
 export async function getHistoryClinicInfo(userId: string, appoinmentId: number) {
     try {
         const query = `SELECT historia.fecha_Rev, historia.hora_Rev, cita.idServicio, -- Datos cita
-                        pacient.nombreUsuario, pacient.apellidoUsuario, pacient.CC, -- Datos paciente
-                            medic.nombreUsuario AS nombreMedico, medic.apellidoUsuario AS apellidoMedico, medic.idEspecialidad, -- Datos mÃ©dico
-                            historia.motivo , historia.descripcion_Motivo, -- Consulta
-                            historia.presion_Sangre, historia.presion_Sangre_Prom, historia.pulso, historia.saturacion, historia.altura, historia.peso, -- Signos vitales
-                            historia.perinatales, historia.patologicos, historia.quirurgicos, historia.vacunas, historia.familiares, -- Antecedentes
-                            historia.conclusion
+                        pacient.nombreUsuario, pacient.apellidoUsuario, pacient.CC, hojaVida.discapacidad, -- Datos paciente
+                        medic.nombreUsuario AS nombreMedico, medic.apellidoUsuario AS apellidoMedico, medic.idEspecialidad, -- Datos mÃ©dico
+                        historia.motivo , historia.descripcion_Motivo, -- Consulta
+                        historia.presion_Sangre, historia.presion_Sangre_Prom, historia.pulso, historia.saturacion, historia.altura, historia.peso, -- Signos vitales
+                        historia.perinatales, historia.patologicos, historia.quirurgicos, hojaVida.alergias, historia.vacunas, historia.familiares, -- Antecedentes
+                        historia.conclusion
                             FROM CITAS cita
-                        JOIN USUARIOS medic ON cita.idDocCC = medic.CC
-                        JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
+                            JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+                            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
                             JOIN HISTORIA_MEDICA historia ON cita.idHistoria_Medica = historia.idHistoria_Medica
+                            JOIN HOJAS_VIDA hojaVida ON hojaVida.idHoja_Vida = pacient.CC
                             WHERE cita.idUsuarioCC = ? AND cita.idCita = ?
                         `;
         const [rows]: any = await connection.query(query, [userId, appoinmentId]);
