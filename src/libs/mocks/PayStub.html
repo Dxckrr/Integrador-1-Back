@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -163,16 +163,16 @@
 
         <section class="receipt-info">
             <div class="patient-info">
-                <p><strong>Paciente:</strong> Juan Pérez</p>
-                <p><strong>Documento:</strong> 123456789</p>
-                <p><strong>Fecha de Nacimiento:</strong> 15/06/1985</p>
+                <span><strong>Paciente:</strong> {{name}} {{last_name}}</span>
+                <span><strong>Documento:</strong> {{cc}}</span>
+                <span><strong>Fecha de Nacimiento:</strong> {{date}}</span>
             </div>
 
             <div class="appointment-info">
-                <p><strong>Número de Cita:</strong> 987654321</p>
-                <p><strong>Especialidad:</strong> Fisioterapia</p>
-                <p><strong>Fecha de la Cita:</strong> 23/09/2024</p>
-                <p><strong>Hora de la Cita:</strong> 10:00 AM</p>
+                <span><strong>Número de Cita:</strong> {{num}}</span>
+                <span><strong>Especialidad:</strong>  {{especiality}}</span>
+                <span><strong>Fecha de la Cita:</strong> {{date}}</span>
+                <span><strong>Hora de la Cita:</strong> {{hora}}</span>
             </div>
         </section>
 
@@ -188,24 +188,24 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Sesión de Fisioterapia</td>
-                        <td>1</td>
-                        <td>$100,000</td>
-                        <td>$100,000</td>
+                        <td>{{description}}</td>
+                        <td>{{num_cantidad}}</td>
+                        <td>{{num_precio_u}}</td>
+                        <td>{{num_total}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="3">Subtotal</td>
-                        <td>$100,000</td>
+                        <td>{{num_sub_ttl}}</td>
                     </tr>
                     <tr>
                         <td colspan="3">Impuestos (19%)</td>
-                        <td>$19,000</td>
+                        <td>{{num_impst}}</td>
                     </tr>
                     <tr>
                         <td colspan="3"><strong>Total a Pagar</strong></td>
-                        <td><strong>$119,000</strong></td>
+                        <td><strong>{{num_ttl}}</strong></td>
                     </tr>
                 </tfoot>
             </table>
@@ -214,14 +214,14 @@
         <section class="payment-info">
             <p><strong>Bancos Disponibles para el Pago:</strong></p>
             <ul>
-                <li>Banco A</li>
-                <li>Banco B</li>
-                <li>Banco C</li>
+                <li>{{banca}}</li>
+                <li>{{bancb}}</li>
+                <li>{{bancc}}</li>
             </ul>
         </section>
 
         <section class="barcode-section">
-            <p><strong>Fecha Límite de Pago:</strong> 30/09/2024</p>
+            <p><strong>Fecha Límite de Pago:</strong> {{date}}</p>
             <div class="barcode-container">
                 <p><strong>Código de Barras:</strong></p>
                 <svg id="barcode"></svg>
