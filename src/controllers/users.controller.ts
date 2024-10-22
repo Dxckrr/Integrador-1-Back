@@ -9,7 +9,7 @@ import {
 
 } from '../services/core/user.service';
 import { User } from 'interfaces/User';
-import { buildCVUserPdf, buildCVEmployeePdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf } from '../libs/PdfService';
+import { buildCVUserPdf, buildCVEmployeePdf, buildHistoryClinicPdf, buildOrderdf, buildPayStubpdf, buildBillPdf } from '../libs/PdfService';
 /**
  * Gets all users by their role
  * @param req user_role
@@ -106,8 +106,8 @@ export const getHistoryClinic = async (req: Request, res: Response) => {
  */
 export const getCVUser = async (req: Request, res: Response) => {
     try {
-        const { cc, idRol } = req.params;
-        if (!cc || !idRol) {
+        const { cc } = req.params;
+        if (!cc) {
             return res.status(400).send("Documento o ID no proporcionados");
         }
         
@@ -135,8 +135,8 @@ export const getCVUser = async (req: Request, res: Response) => {
  */
 export const getCVEmployee = async (req: Request, res: Response) => {
     try {
-        const { cc, idRol } = req.params;
-        if (!cc || !idRol) {
+        const { cc } = req.params;
+        if (!cc) {
             return res.status(400).send("Documento o ID no proporcionados");
         }
         const infoCV: any | null = await getCVInfo(cc);
@@ -198,6 +198,32 @@ export const getPayStub = async (req: Request, res: Response) => {
         const infoPay: any | null = await getPayStubInfo(parseInt(id));
         
         const pdf = await buildPayStubpdf(infoPay);
+        
+        res.writeHead(200, {
+            "Content-Type": "application/pdf",
+            "Content-Disposition": "attachment; filename=filename.pdf"
+        });
+
+        res.end(pdf);
+    } catch (error) {
+        console.error("Error al generar o enviar el PDF:", error);
+        res.status(500).send("Error al generar o enviar el PDF");
+    }
+}
+/**
+ * Gets the bill PDF
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const getBill = async (req: Request, res: Response) => {
+    try {
+        // const id  = req.params.id;
+        // if (!id) {
+        //     return res.status(400).send("ID no proporcionados");
+        // }
+        // const infoPay: any | null = await getPayStubInfo(parseInt(id));
+        const pdf = await buildBillPdf();
         
         res.writeHead(200, {
             "Content-Type": "application/pdf",

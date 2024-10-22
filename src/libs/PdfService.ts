@@ -184,16 +184,17 @@ export async function buildPayStubpdf(userData: any) {
     const pdf = await generatePdf(htmlContent);
     return pdf;
 }
-export async function buildBillPdf(userData: any) {
+//export async function buildBillPdf(userData: any) {
+export async function buildBillPdf() {
     const patientData = {};
-    if (userData){
-        const age = calcularEdad(userData.fecha_nacimiento);
-        const patientData = {
-            // name: userData.nombreUsuario || '',
-            // last_name: userData.apellidoUsuario || '',
+    // if (userData){
+    //     const age = calcularEdad(userData.fecha_nacimiento);
+    //     const patientData = {
+    //         // name: userData.nombreUsuario || '',
+    //         // last_name: userData.apellidoUsuario || '',
             
-        }
-    }
+    //     }
+    // }
     const htmlPath = path.join(__dirname, 'mocks', 'Bill.html');
     const htmlContent = await replacePlaceholders(htmlPath, patientData);
     const pdf = await generatePdf(htmlContent);
