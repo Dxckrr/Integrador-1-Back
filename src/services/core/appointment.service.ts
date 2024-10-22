@@ -65,14 +65,22 @@ export async function getAppointmentById(id: number) {
  */
 export async function getAppointmentByUser(userId: number) {
     try {
-        const query = `SELECT cita.idServicio AS 'type', CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
-        CONCAT(cita.dia, ' ') AS 'date', cita.idCita AS 'id',
-        CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
-        pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
-        FROM CITAS cita
-        JOIN USUARIOS medic ON cita.idDocCC = medic.CC
-        JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
-        WHERE idUsuarioCC = ?`;
+        const query = `
+            SELECT 
+                cita.idServicio AS 'type',
+                servicios.nombreServicio AS 'nombreServicio', 
+                CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
+                CONCAT(cita.dia, ' ') AS 'date', 
+                cita.idCita AS 'id',
+                CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
+                pacient.emailUsuario AS 'pacientEmail', 
+                pacient.CC AS 'pacientID',  
+                cita.hora AS 'time'
+            FROM CITAS cita
+            JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
+            JOIN SERVICIOS servicios ON cita.idServicio = servicios.idServicio
+            WHERE cita.idUsuarioCC = ?`;
         const [rows]: any = await connection.query(query, [userId]);
         return rows;
     } catch (error) {
