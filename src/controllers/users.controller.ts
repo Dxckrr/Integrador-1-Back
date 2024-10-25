@@ -168,7 +168,6 @@ export const getOrder = async (req: Request, res: Response) => {
         }
         
         const infoOrder: any | null = await getOrderInfo(parseInt(id));
-        
         const pdf = await buildOrderdf(infoOrder);
         
         res.writeHead(200, {
