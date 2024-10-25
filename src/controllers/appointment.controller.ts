@@ -7,7 +7,8 @@ import {
     updateAppointmentById as updateAppointmentByIdService,
     deleteAppointmentById as deleteAppointmentByIdService,
     getAppointmentsByService as getAppointmentsByService_Service,
-    getAllAppointments_PRICE as getAllAppointments_PRICE_Service
+    getAllAppointments_PRICE as getAllAppointments_PRICE_Service,
+    getAppointmentByDoctor
 } from '../services/core/appointment.service';
 import { getUserNameById } from 'services/core/user.service';
 
@@ -62,6 +63,15 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 export const getAppointmentByUser = async (req: Request, res: Response) => {
     try {
         const appointments = await getAppointmentByUserService(parseInt(req.params.id));
+        return res.status(200).json(appointments);
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+};
+
+export const getAppointmentByDoc = async (req: Request, res: Response) => {
+    try {
+        const appointments = await getAppointmentByDoctor(parseInt(req.params.id));
         return res.status(200).json(appointments);
     } catch (error) {
         return res.status(500).json({ message: error });
