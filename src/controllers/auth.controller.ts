@@ -75,8 +75,11 @@ export const signin = async (req: Request, res: Response) => {
         const token: string = jwt.sign({ _id: user.CC }, process.env.TOKEN_SECRET || ' ', {
             expiresIn: 60 * 60 * 3  //una hora
         });
-        res.cookie("token", token);
-        return res.status(200).header('auth-token', token).json({ user });
+        res.cookie('token', token, {
+            httpOnly: true,           // Asegura que la cookie solo sea accesible desde el servidor
+            sameSite: 'none',         // Permite el uso de la cookie en solicitudes cruzadas (ideal para front-back separados)
+        });
+        return res.status(200).header('auth-token', token).json(user);
     } catch (error) {
         console.error("Error during login: ", error);
         return res.status(404).json({ success: false, message: 'Error interno del servidor.' });
@@ -95,8 +98,8 @@ export const profile = async (req: Request, res: Response) => {
     const user: User | null = await getUserById(req.CC);
     if (!user) {
         console.log(user)
-        return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+        return res.status(404).json({ message: 'Usuario no encontrado.' });
     }
-    res.status(200).json({ success: true, user });
+    res.status(200).json(user);
 };
 

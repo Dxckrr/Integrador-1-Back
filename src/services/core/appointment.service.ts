@@ -1,5 +1,6 @@
 import { Appointment } from 'interfaces/Appointment';
 import connection from '../../providers/database';
+
 /**
  * Creates a new Appointment
  * @param appointmentData 
@@ -29,7 +30,8 @@ export async function getAllAppointments() {
             pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
             FROM CITAS cita
             JOIN USUARIOS medic ON cita.idDocCC = medic.CC
-            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC`;
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC 
+            WHERE cita.estadoCita = 0`;
         const [rows]: any = await connection.query(query);
         return rows;
     } catch (error) {
@@ -63,14 +65,22 @@ export async function getAppointmentById(id: number) {
  */
 export async function getAppointmentByUser(userId: number) {
     try {
-        const query = `SELECT cita.idServicio AS 'type', CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
-        CONCAT(cita.dia, ' ') AS 'date', cita.idCita AS 'id',
-        CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
-        pacient.emailUsuario AS 'pacientEmail', idUsuarioCC AS 'pacientID', hora AS 'time'
-        FROM CITAS cita
-        JOIN USUARIOS medic ON cita.idDocCC = medic.CC
-        JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
-        WHERE idUsuarioCC = ?`;
+        const query = `
+            SELECT 
+                cita.idServicio AS 'type',
+                servicios.nombreServicio AS 'nombreServicio', 
+                CONCAT(medic.nombreUsuario, ' ', medic.apellidoUsuario) AS 'medicName', 
+                CONCAT(cita.dia, ' ') AS 'date', 
+                cita.idCita AS 'id',
+                CONCAT(pacient.nombreUsuario, ' ', pacient.apellidoUsuario) AS 'pacientName',
+                pacient.emailUsuario AS 'pacientEmail', 
+                pacient.CC AS 'pacientID',  
+                cita.hora AS 'time'
+            FROM CITAS cita
+            JOIN USUARIOS medic ON cita.idDocCC = medic.CC
+            JOIN USUARIOS pacient ON cita.idUsuarioCC = pacient.CC
+            JOIN SERVICIOS servicios ON cita.idServicio = servicios.idServicio
+            WHERE cita.idUsuarioCC = ?`;
         const [rows]: any = await connection.query(query, [userId]);
         return rows;
     } catch (error) {
@@ -111,5 +121,50 @@ export async function deleteAppointmentById(id: number) {
         throw error;
     }
 }
+export async function getAppointmentsByService(service: number) {
+    try {
+        const query = `
+            SELECT 
+                MONTH(c.dia) AS month_num, 
+                YEAR(c.dia) AS year, 
+                SUM(s.precioServicio) AS total_income  
+            FROM 
+                CITAS c
+            JOIN 
+                SERVICIOS s ON c.idServicio = s.idServicio
+            JOIN 
+                ESPECIALIDADES e ON s.idEspecialidad = e.idEspecialidad
+            WHERE 
+                e.idEspecialidad = ? 
+            GROUP BY 
+                YEAR(c.dia), MONTH(c.dia)  
+            ORDER BY 
+                YEAR(c.dia), MONTH(c.dia) 
+                ;
+        `;
+        const [rows]: any = await connection.query(query, [service]);  // Use category as parameter
+        return rows;  // This will return an array of { month, total_income }
+    } catch (error) {
+        console.error("Error fetching appointments by category", error);
+        throw error;
+    }
+}
 
-
+export async function getAllAppointments_PRICE() {
+    try {
+        const query = `
+            SELECT 
+                c.dia AS appointment_date, 
+                s.precioServicio AS service_price  
+            FROM CITAS c
+            JOIN 
+                SERVICIOS s ON c.idServicio = s.idServicio  
+            ORDER BY c.dia;
+        `;
+        const [rows]: any = await connection.query(query);  // Use category as parameter
+        return rows;  // This will return an array of { month, total_income }
+    } catch (error) {
+        console.error("Error fetching appointments by category", error);
+        throw error;
+    }
+}
