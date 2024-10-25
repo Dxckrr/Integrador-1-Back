@@ -132,14 +132,14 @@ export async function buildCVEmployeePdf(userData: any) {
 export async function buildOrderdf(userData: any) {
     const patientData = {}
     if (userData){
-        const age = calcularEdad(userData.fecha_nacimiento);
+        console.log(userData)
+        //const age = calcularEdad(userData.fecha_nacimiento);
         const patientData = {
             // //Informacion personal
-            cc: userData.CC,
-            age: userData.fecha_Nac,
+            num_id: userData.CC,
+            age: userData.fecha_Nac || '',
             name: userData.nombreUsuario,
             last_name: userData.apellidoUsuario,
-            date: formatDate(userData.fecha_nacimiento),
             // // Diagnostico paciente
             diagnostico: userData.diagnostico,
             // // Recomendaciones
@@ -149,6 +149,7 @@ export async function buildOrderdf(userData: any) {
             especialidad: userData.firm,
             cc_especialista: userData.cc,
         }
+        console.log(patientData)
     }
     const htmlPath = path.join(__dirname, 'mocks', 'MedicOrder.html');
     const htmlContent = await replacePlaceholders(htmlPath, patientData);

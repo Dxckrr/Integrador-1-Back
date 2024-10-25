@@ -250,9 +250,9 @@ export async function getOrderInfo(orderId: number) {
             medico.CC, medico.nombreUsuario, medico.apellidoUsuario, cita.idServicio
             FROM ORDENES_MEDICAS orden 
             JOIN CITAS cita ON cita.idCita = orden.idCita
-            JOIN USUARIOS usuario ON usuario.CC = cita.idCita
+            JOIN USUARIOS usuario ON usuario.CC = cita.idUsuarioCC
             JOIN USUARIOS medico ON medico.CC = cita.idDocCC
-            WHERE orden.idCita = ?`;
+            WHERE orden.idOrden_Medica = ?`;
         const [rows]: any = await connection.query(query, [orderId]);
         if (rows.length > 0) {
             return { ...rows[0] };
