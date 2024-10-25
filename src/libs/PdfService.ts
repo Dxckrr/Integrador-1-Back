@@ -153,7 +153,7 @@ export async function buildOrderdf(userData: any) {
     }
     const htmlPath = path.join(__dirname, 'mocks', 'MedicOrder.html');
     const htmlContent = await replacePlaceholders(htmlPath, patientData);
-    const pdf = await generatePdf(htmlContent);
+    const pdf = await generatePdf({htmlContent, TIMEOUT: 2000000000});
     return pdf;
 }
 export async function buildPayStubpdf(userData: any) {
